@@ -8,4 +8,4 @@ export const SideNav = () =>
     <li><a href="/schedule">Schedule</a></li>
     <li><a href="/Finance">Finance</a></li>
     <li><a href="/notes">Notes</a></li>
-  </ul>;
+  </ul>;  
