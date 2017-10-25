@@ -1,0 +1,9 @@
+.rbc-date-cell{
+    height: 100px;
+}
+
+.rbc-calendar{
+    padding: 4px;
+    padding-top: 5px;
+    box-shadow: 1px 5px 16px #888888;
+}

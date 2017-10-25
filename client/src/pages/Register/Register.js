@@ -30,7 +30,7 @@ class Register extends Component {
       })
         .then(res => {
           if(res.data.user){
-            this.props.history.push('/books');
+            this.props.history.push('/notes');
           }
           else {
             console.log("no user");
