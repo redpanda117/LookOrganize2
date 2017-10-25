@@ -6,10 +6,18 @@ const userSchema = new Schema({
   username: { type: String },
   email:{ type: String},
   password: { type: String },
-  book: [{
+  note: [{
     type: Schema.Types.ObjectId,
-    ref: "Book"
- }]
+    ref: "Note"
+ }],
+  finance: [{
+    type: Schema.Types.ObjectId,
+    ref: "Finance"
+}],
+  event: [{
+    type: Schema.Types.ObjectId,
+    ref: "Event"
+}],
 });
 
 userSchema.plugin(passLocalMon);

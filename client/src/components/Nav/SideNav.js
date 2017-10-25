@@ -4,8 +4,7 @@ import "./Nav.css";
 export const SideNav = () =>
  
   <ul className="nav-sidebar">
-    <li className="active"><a href="/">Home<span className="sr-only">(current)</span></a></li>
     <li><a href="/schedule">Schedule</a></li>
-    <li><a href="/Finance">Finance</a></li>
+    <li><a href="/finance">Finance</a></li>
     <li><a href="/notes">Notes</a></li>
   </ul>;  

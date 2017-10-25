@@ -7,6 +7,7 @@ import NoMatch from "./pages/NoMatch";
 import Login from "./pages/Login";
 import MySchedule from "./pages/Calendar";
 import Register from "./pages/Register";
+import Finance from "./pages/Finance";
 
 const App = () =>
   <Router>
@@ -18,6 +19,7 @@ const App = () =>
         <Route exact path="/logout" component={Login} />
         <Route exact path= "/schedule/" component={MySchedule}/>
         <Route exact path="/notes/" component={Notes} />
+        <Route exact path="/finance/" component={Finance} />
         <Route exact path="/notes/:id" component={Detail} />
         <Route component={NoMatch} />
       </Switch>

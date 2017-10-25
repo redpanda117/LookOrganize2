@@ -33,7 +33,24 @@ export default {
     // Saves a note to the database
     saveEvent: function(eventData, id) {
       return axios.post("/api/events/" + id, eventData);
-    }
+    },
+
+        // Gets all 
+        getFinances: function() {
+          return axios.get("/api/finance");
+        },
+        // Gets the note with the given id
+        getFinance: function(id) {
+          return axios.get("/api/finance/" + id);
+        },
+        // Deletes the note with the given id
+        deleteFinance: function(id) {
+          return axios.delete("/api/finance/" + id);
+        },
+        // Saves a note to the database
+        saveFinance: function(financeData, id) {
+          return axios.post("/api/finance/" + id, financeData);
+        },
 
   login: function(userData) {
     return axios.post("/api/auth/login", userData);

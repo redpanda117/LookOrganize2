@@ -4,33 +4,33 @@ import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Input, FormBtn } from "../../components/Form";
 import Button from "../../components/Button";
 import {Nav , SideNav} from "../../components/Nav";
 import { Modal } from 'react-bootstrap';
 
-class Notes extends Component {
+class Finance extends Component {
   state = {
-    notes: [],
+    finance: [],
     title: "",
-    synopsis: "",
+    cost: "",
     currentUser: "",
     showModal: false
   };
 
   componentDidMount() {
-    this.loadNotes();
+    this.loadFinance();
   }
 
-  loadNotes = () => {
-    API.getNotes()
+  loadFinance = () => {
+    API.getFinances()
       .then(res => {
         if(res.data.statusCode === 401){
           this.props.history.push("/login");
         }
         else {
           console.log("user:", res.data.sess);
-          this.setState({currentUser: res.data.sess.passport.user, notes: res.data.results, title: "", synopsis: "" })
+          this.setState({currentUser: res.data.sess.passport.user, finance: res.data.results, title: "", cost: "" })
         }
       })
       .catch(err => console.log(err));
@@ -44,9 +44,9 @@ class Notes extends Component {
     this.setState({ showModal: false });
   };
 
-  deleteNote = id => {
-    API.deleteNote(id)
-      .then(res => this.loadNotes())
+  deleteFinance = id => {
+    API.deleteFinance(id)
+      .then(res => this.loadFinance())
       .catch(err => console.log(err));
   };
 
@@ -57,7 +57,16 @@ class Notes extends Component {
     });
   };
 
-  addNoteClick = (event) => {
+  totalCost = (cost) =>{
+   let addedCost = 0;
+   for(let i = 0; i< cost.length; i++){
+     addedCost += parseFloat(cost[i].cost,10);  
+   }
+   console.log(addedCost);
+   return(addedCost);
+}
+
+  addFinanceClick = (event) => {
     this.handleFormSubmit(event); 
     this.close();
   }
@@ -65,12 +74,12 @@ class Notes extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.title) {
-      API.saveNote({
+      API.saveFinance({
         title: this.state.title,
-        synopsis: this.state.synopsis,
+        cost: this.state.cost,
         
       }, this.state.currentUser)
-        .then(res => this.loadNotes())
+        .then(res => this.loadFinance())
         .catch(err => console.log(err));
     }
   };
@@ -84,27 +93,29 @@ class Notes extends Component {
                 <SideNav></SideNav>
               </Col>
               <Button onClick={this.open}>
-                  + Add Note
+                  + Add Finance
               </Button>
             <Row>
             <Col size="md-6">
-              {this.state.notes.length ? (
+              {this.state.finance.length ? (
+                <div>
+                   <h3 
+                   onChange ={this.totalCost(this.state.finance)}
+                   id = "totalCost"
+                   >Current overall total is: {this.totalCost(this.state.finance)} </h3>
                 <List>
-                  {this.state.notes.map(note => (
-                    <ListItem key={note._id}>
-                      <Link to={"/notes/" + note._id}>
+                  {this.state.finance.map(finance => (
+                    <ListItem key={finance._id}>
+                      <Link to={"/finance/" + finance._id}>
                         <strong>
-                          {note.title} 
-                        </strong> 
-                        <DeleteBtn onClick={() => this.deleteNote(note._id)} />
-                        <p>
-                          {note.synopsis}
-                        </p>
+                          {finance.title} {finance.cost}
+                        </strong>
                       </Link>
-                      
+                      <DeleteBtn onClick={() => this.deleteFinance(finance._id)} />
                     </ListItem>
                   ))}
                 </List>
+                </div>
               ) : (
                   <h3>No Results to Display</h3>
                 )}
@@ -115,7 +126,7 @@ class Notes extends Component {
           
           <Modal show={this.state.showModal} onHide={this.close}>
               <Modal.Header closeButton>
-                <Modal.Title>New Note</Modal.Title>
+                <Modal.Title>New Finance</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <form>
@@ -125,10 +136,10 @@ class Notes extends Component {
                 name="title"
                 placeholder="Title (required)"
               />
-              <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
+              <Input
+                value={this.state.cost}
+                onChange={this.handleInputChange}  
+                name="cost"
                 placeholder="Discription (Optional)"
               />
                 </form>
@@ -136,9 +147,9 @@ class Notes extends Component {
               <Modal.Footer>
                   <FormBtn
                     disabled={!(this.state.title)}
-                    onClick={this.addNoteClick}
+                    onClick={this.addFinanceClick}
                   >
-                    Submit Note
+                    Submit Finance
                   </FormBtn>
                   <Button onClick= {this.close}>Cancel</Button>
               </Modal.Footer>
@@ -149,4 +160,4 @@ class Notes extends Component {
   }
 }
 
-export default Notes;
+export default Finance;
