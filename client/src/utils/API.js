@@ -18,6 +18,23 @@ export default {
     return axios.post("/api/notes/" + id, noteData);
   },
 
+    // Gets all 
+    getEvents: function() {
+      return axios.get("/api/events");
+    },
+    // Gets the note with the given id
+    getEvent: function(id) {
+      return axios.get("/api/events/" + id);
+    },
+    // Deletes the note with the given id
+    deleteEvent: function(id) {
+      return axios.delete("/api/events/" + id);
+    },
+    // Saves a note to the database
+    saveEvent: function(eventData, id) {
+      return axios.post("/api/events/" + id, eventData);
+    }
+
   login: function(userData) {
     return axios.post("/api/auth/login", userData);
   },
