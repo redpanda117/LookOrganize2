@@ -4,7 +4,7 @@ import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Input, TextArea } from "../../components/Form";
 import Button from "../../components/Button";
 import {Nav , SideNav} from "../../components/Nav";
 import { Modal } from 'react-bootstrap';
@@ -137,12 +137,12 @@ class Notes extends Component {
                 </form>
               </Modal.Body>
               <Modal.Footer>
-                  <FormBtn
+                  <Button
                     disabled={!(this.state.title)}
                     onClick={this.addNoteClick}
                   >
                     Submit Note
-                  </FormBtn>
+                  </Button>
                   <Button onClick= {this.close}>Cancel</Button>
               </Modal.Footer>
               </Modal>

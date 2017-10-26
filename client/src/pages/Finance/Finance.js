@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
 import { Col, Row} from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
 import {Nav , SideNav} from "../../components/Nav";
