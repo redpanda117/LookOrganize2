@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import {Nav} from "../../components/Nav";
 
-//testing heroku
+//testing heroku test
 class Register extends Component {
   state = {
     username: "",
