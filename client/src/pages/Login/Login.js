@@ -37,7 +37,7 @@ class Login extends Component {
       })
         .then(res => {
           if (res.data.user) {
-            this.props.history.push('/notes/');
+            this.props.history.push('/events/');
           }
           else {
             console.log("no user");
@@ -88,7 +88,7 @@ class Login extends Component {
           <Col size ="md-5">
             <h2>Don't have an accout?</h2>
             <p>No worries just sign up. It is easy.</p>
-                <Link to={"/SignUp/" }>
+                <Link to={"/register" }>
           <Button>Sign up</Button>
                 </Link>
           </Col>

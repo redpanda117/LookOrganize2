@@ -111,14 +111,14 @@ render(){
                   <Input
                     value={this.state.startDate}
                     onChange={this.handleInputChange}
-                    type="datetime-local"
+                    type="date"
                     name="startDate"
                   />
                   <p>End:</p>
                   <Input
                     value={this.state.endDate}
                     onChange={this.handleInputChange}
-                    type="datetime-local"
+                    type="date"
                     name="endDate"
                   />
                 </form>

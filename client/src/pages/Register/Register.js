@@ -30,7 +30,7 @@ class Register extends Component {
       })
         .then(res => {
           if(res.data.user){
-            this.props.history.push('/notes');
+            this.props.history.push('/events');
           }
           else {
             console.log("no user");
@@ -71,7 +71,7 @@ class Register extends Component {
                             name="password"
                             placeholder="Password (required)"
                         />
-                        <Link to={"/SignUp/" }>
+                        <Link to={"/register" }>
                         <FormBtn
                             disabled={!(this.state.email && this.state.password && this.state.username)}
                             onClick={this.handleFormSubmit}
