@@ -24,13 +24,17 @@ class Notes extends Component {
 
   loadNotes = () => {
     API.getNotes()
-      .then(res => {
+      .then((res,req) => {
         if(res.data.statusCode === 401){
           this.props.history.push("/login");
         }
         else {
           console.log("user:", res.data.sess);
-          this.setState({currentUser: res.data.sess.passport.user, notes: res.data.results, title: "", synopsis: "" })
+          //console.log(req.user.id);
+          this.setState({
+            currentUser: res.data.sess.passport.user, 
+            notes: res.data.results, 
+            title: "", synopsis: "" })
         }
       })
       .catch(err => console.log(err));
@@ -92,15 +96,18 @@ class Notes extends Component {
                 <List>
                   {this.state.notes.map(note => (
                     <ListItem key={note._id}>
+                      
                       <Link to={"/notes/" + note._id}>
                         <strong>
-                          {note.title} 
-                        </strong> 
-                        <DeleteBtn onClick={() => this.deleteNote(note._id)} />
+                          {note.title}
                         <p>
                           {note.synopsis}
-                        </p>
-                      </Link>
+                        </p>  
+                        </strong>
+                        </Link>
+                        <DeleteBtn onClick={() => this.deleteNote(note._id)} />
+                        
+                      
                       
                     </ListItem>
                   ))}

@@ -26,7 +26,7 @@ module.exports = {
   },
   create: function (req, res) {
     if (req.user) {
-      const person = req.body.user; 
+      const person = req.body.username; 
       const newNote = new db.Note(req.body);
       newNote.save(function(err, doc){
         if(err){

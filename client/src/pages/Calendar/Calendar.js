@@ -12,9 +12,9 @@ import { Modal } from 'react-bootstrap';
 class MySchedule extends Component {
   state = {
     events:[],
-    body:"",
-    start:"",
-    end:"",
+    title:"",
+    startDate:"",
+    endDate:"",
     date:"",
     currentUser:"",
     showModal: false
@@ -35,10 +35,10 @@ class MySchedule extends Component {
           this.setState({
             currentUser: res.data.sess.passport.user, 
             events: res.data.results,  
-            body: "",
-            start:"",
-            end:"",
-            date:""})
+            title: "",
+            startDate: "",
+            endDate:"",
+          })
         }
       })
       .catch(err => console.log(err));
@@ -61,14 +61,13 @@ class MySchedule extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.body || this.state.start || this.state.end) {
+    if (this.state.title || this.state.startDate || this.state.endDate) {
       API.saveEvent({
-        body: this.state.body,
-        date: this.state.date,
-        start: this.state.start,
-        end: this.state.end
+        title: this.state.title,
+        startDate: this.state.startDate,
+        endDate: this.state.endDate
       })
-        .then(res => this.loadNote())
+        .then(res => this.loadEvents())
         .catch(err => console.log(err));
     }
   };
@@ -92,7 +91,7 @@ render(){
             <SideNav></SideNav>
           </Col>
           <Col size = "md-8">
-              <MyCalendar slotSelected = {this.slotSelected}></MyCalendar>
+              <MyCalendar slotSelected = {this.slotSelected} events={this.state.events}></MyCalendar>
           </Col>
         </Row>
         <Modal show={this.state.showModal} onHide={this.close}>
@@ -102,37 +101,31 @@ render(){
               <Modal.Body>
                 <form>
                   <Input
-                    value={this.state.body}
+                    value={this.state.title}
                     onChange={this.handleInputChange}
-                    name="body"
+                    name="title"
                     placeholder="Event"
                   />
-                  <p>Date:</p>
-                  <Input
-                  value={this.state.date}
-                  onChange={this.handleInputChange}
-                  type="date"
-                  name="date"
-                  />
+                  
                   <p>Start:</p>
                   <Input
-                    value={this.state.start}
+                    value={this.state.startDate}
                     onChange={this.handleInputChange}
-                    type="time"
-                    name="start"
+                    type="datetime-local"
+                    name="startDate"
                   />
                   <p>End:</p>
                   <Input
-                    value={this.state.end}
+                    value={this.state.endDate}
                     onChange={this.handleInputChange}
-                    type="time"
-                    name="end"
+                    type="datetime-local"
+                    name="endDate"
                   />
                 </form>
               </Modal.Body>
               <Modal.Footer>
                   <Button
-                    disabled={!(this.state.start && this.state.end)}
+                    disabled={!(this.state.startDate && this.state.endDate)}
                     onClick={this.addEventClick}
                   >Add Event
                   </Button>
@@ -141,14 +134,5 @@ render(){
             </Modal>
         </div>
 )}
-
-
-
-
 }
-
-
-
-
-
 export default MySchedule;

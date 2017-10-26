@@ -9,7 +9,7 @@ router.use("/auth", authRoutes);
 // note routes
 router.use("/notes", noteRoutes);
 //event routes
-router.use("/schedule", eventRoutes);
+router.use("/events", eventRoutes);
 //finance routes
 router.use("/finance", financeRoutes);
 

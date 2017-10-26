@@ -11,9 +11,12 @@ BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
 const MyCalendar = props => (
   <div>
     <BigCalendar
-      events={[]}
+     {...props}
+      titleAccessor= 'title'
       startAccessor='startDate'
       endAccessor='endDate'
+      views={{month: true, week: true, day: true , agenda: true}}
+      onSelectEvent = {true}
       selectable = {true}
       onSelectSlot = {props.slotSelected}
     />

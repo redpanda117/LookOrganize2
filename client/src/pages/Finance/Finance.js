@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../../components/Grid";
+import { Col, Row} from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
 import Button from "../../components/Button";
@@ -30,7 +30,11 @@ class Finance extends Component {
         }
         else {
           console.log("user:", res.data.sess);
-          this.setState({currentUser: res.data.sess.passport.user, finance: res.data.results, title: "", cost: "" })
+          this.setState({
+            currentUser: res.data.sess.passport.user, 
+            finance: res.data.results, 
+            title: "", 
+            cost: "" })
         }
       })
       .catch(err => console.log(err));
@@ -92,44 +96,8 @@ class Finance extends Component {
               <Col size = "md-3">
                 <SideNav></SideNav>
               </Col>
-              <Button onClick={this.open}>
-                  + Add Finance
-              </Button>
-            <Row>
-            <Col size="md-6">
-              {this.state.finance.length ? (
-                <div>
-                   <h3 
-                   onChange ={this.totalCost(this.state.finance)}
-                   id = "totalCost"
-                   >Current overall total is: {this.totalCost(this.state.finance)} </h3>
-                <List>
-                  {this.state.finance.map(finance => (
-                    <ListItem key={finance._id}>
-                      <Link to={"/finance/" + finance._id}>
-                        <strong>
-                          {finance.title} {finance.cost}
-                        </strong>
-                      </Link>
-                      <DeleteBtn onClick={() => this.deleteFinance(finance._id)} />
-                    </ListItem>
-                  ))}
-                </List>
-                </div>
-              ) : (
-                  <h3>No Results to Display</h3>
-                )}
-            </Col>
-          </Row>
-        </Row>      
-        <Container>
-          
-          <Modal show={this.state.showModal} onHide={this.close}>
-              <Modal.Header closeButton>
-                <Modal.Title>New Finance</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <form>
+              <Col size="md-6">
+              <form>
                 <Input
                 value={this.state.title}
                 onChange={this.handleInputChange}
@@ -143,18 +111,42 @@ class Finance extends Component {
                 placeholder="Discription (Optional)"
               />
                 </form>
-              </Modal.Body>
-              <Modal.Footer>
-                  <FormBtn
-                    disabled={!(this.state.title)}
-                    onClick={this.addFinanceClick}
-                  >
-                    Submit Finance
-                  </FormBtn>
-                  <Button onClick= {this.close}>Cancel</Button>
-              </Modal.Footer>
-              </Modal>
-        </Container>
+                <FormBtn
+                disabled={!(this.state.title)}
+                onClick={this.addFinanceClick}
+              >
+                Submit Finance
+              </FormBtn>
+              </Col>
+              </Row>
+            <Row> 
+              <Col size="md-3"></Col>
+            <Col size="md-6">
+              {this.state.finance.length ? (
+                <div>
+                   <h3 
+                   value ={this.totalCost(this.state.finance)}
+                   id = "totalCost"
+                   >Current overall total is: ${this.totalCost(this.state.finance)} </h3>
+                <List>
+                  {this.state.finance.map(finance => (
+                    <ListItem key={finance._id}>
+                    <DeleteBtn onClick={() => this.deleteFinance(finance._id)} />
+                      <Link to={"/finance/" + finance._id}>
+                        <strong>
+                          {finance.title} {finance.cost}
+                        </strong>
+                      </Link>
+                      
+                    </ListItem>
+                  ))}
+                </List>
+                </div>
+              ) : (
+                  <h3>No Results to Display</h3>
+                )}
+            </Col>
+          </Row>
       </div>
     );
   }
