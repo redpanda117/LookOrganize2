@@ -96,19 +96,15 @@ class Notes extends Component {
                 <List>
                   {this.state.notes.map(note => (
                     <ListItem key={note._id}>
-                      
-                      <Link to={"/notes/" + note._id}>
+                      <DeleteBtn onClick={() => this.deleteNote(note._id)} />
+                      <Link to={"/notes/"}>
                         <strong>
                           {note.title}
+                          </strong>
                         <p>
                           {note.synopsis}
                         </p>  
-                        </strong>
                         </Link>
-                        <DeleteBtn onClick={() => this.deleteNote(note._id)} />
-                        
-                      
-                      
                     </ListItem>
                   ))}
                 </List>

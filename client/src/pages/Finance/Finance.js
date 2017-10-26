@@ -3,11 +3,8 @@ import DeleteBtn from "../../components/DeleteBtn";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row} from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
-import Button from "../../components/Button";
 import {Nav , SideNav} from "../../components/Nav";
-import { Modal } from 'react-bootstrap';
 
 class Finance extends Component {
   state = {
@@ -122,29 +119,30 @@ class Finance extends Component {
             <Row> 
               <Col size="md-3"></Col>
             <Col size="md-6">
-              {this.state.finance.length ? (
+              
                 <div>
                    <h3 
                    value ={this.totalCost(this.state.finance)}
                    id = "totalCost"
                    >Current overall total is: ${this.totalCost(this.state.finance)} </h3>
-                <List>
+                <table className="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th>Cost</th>
+                  </tr>
+                  </thead>
                   {this.state.finance.map(finance => (
-                    <ListItem key={finance._id}>
-                    <DeleteBtn onClick={() => this.deleteFinance(finance._id)} />
-                      <Link to={"/finance/" + finance._id}>
-                        <strong>
-                          {finance.title} {finance.cost}
-                        </strong>
-                      </Link>
-                      
-                    </ListItem>
+                    <tr key={finance._id}>
+                        <td>
+                        {finance.title}                         
+                        </td>
+                        <td>{finance.cost}</td>
+                    </tr>
                   ))}
-                </List>
+                </table>
                 </div>
-              ) : (
-                  <h3>No Results to Display</h3>
-                )}
+              
             </Col>
           </Row>
       </div>
