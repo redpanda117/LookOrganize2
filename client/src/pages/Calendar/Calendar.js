@@ -80,8 +80,7 @@ class MySchedule extends Component {
       this.setState({ showModal: true });
       console.log(slotInfo)
     }
-  
-    
+      
 render(){
     return(
         <div>
